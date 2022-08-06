@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,14 +29,14 @@ public class Hotel {
 	@Column(name = "hotl_direccion")
 	private String direccion;
 
-	@OneToMany(mappedBy = "hotel")
+	//EGER carga por defecto necesite o no, siempre va a traer los datos de habitaciones
+	//LAZY conocido como carga perezosa pero mas eficiente
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Habitacion> habitaciones;
 
-	
 	@Override
 	public String toString() {
-		return "Hotel [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", habitaciones=" + habitaciones
-				+ "]";
+		return "Hotel [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
 
 	// SET Y GET

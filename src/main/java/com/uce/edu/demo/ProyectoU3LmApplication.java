@@ -8,7 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.uce.edu.demo.repository.modelo.Factura;
+import com.uce.edu.demo.repository.modelo.Habitacion;
 import com.uce.edu.demo.repository.modelo.Hotel;
+import com.uce.edu.demo.service.IFacturaService;
 import com.uce.edu.demo.service.IHotelService;
 
 @SpringBootApplication
@@ -19,6 +22,8 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	@Autowired
 	private IHotelService iHotelService;
 
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU3LmApplication.class, args);
 	}
@@ -27,48 +32,41 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		LOG.info("INNER JOIN");
+		LOG.info("INNER JOIN EAGER/LAZY");
 		List<Hotel> listaHotel = this.iHotelService.busacarHotelInnerJoin("Familiar");
 
 		for (Hotel h : listaHotel) {
 
-			LOG.info("Hotel Familiar Inner: " + h.getNombre() + "" + h.getDireccion());
+			LOG.info("Hotel LAZY: " + h.getNombre() + h.getDireccion());
+			for (Habitacion ha : h.getHabitaciones()) {
+				LOG.info("Habitaciones: " + ha);
+			}
 		}
+
+		LOG.info("REALCIONAMIENTO WHERE");
+
+		List<Hotel> listaHotelWhere = this.iHotelService.busacarHotelJoinWhere("Familiar");
+
+		for (Hotel h : listaHotelWhere) {
+
+			LOG.info("Hotel Where: " + h.getNombre() + h.getDireccion());
+
+		}
+
+		LOG.info("JOIN FETCH");
+
+		List<Hotel> listaHotelFetch = this.iHotelService.busacarHotelJoinFetch("Familiar");
+
+		for (Hotel h : listaHotelFetch) {
+
+			LOG.info("Hotel FETCH: " + h.getNombre() + h.getDireccion());
+			for (Habitacion ha : h.getHabitaciones()) {
+				LOG.info("Habitaciones Fetch: " + ha);
+			}
+
+		}
+
 		
-		List<Hotel> listaHotelInner = this.iHotelService.busacarHotelInnerJoin();
-
-		for (Hotel h : listaHotelInner) {
-
-			LOG.info("Hotel Inner: " + h.getNombre() + "" + h.getDireccion());
-		}
-
-
-		
-		LOG.info("LEFT JOIN");
-		// LEFT
-		List<Hotel> listaHotel2 = this.iHotelService.busacarHotelOuterJoinLeft("Familiar");
-
-		for (Hotel h : listaHotel2) {
-
-			LOG.info("Hotel Familiar Left: " + h.getNombre() + "" + h.getDireccion());
-		}
-		
-		List<Hotel> listaHotelLeft = this.iHotelService.busacarHotelOuterJoinLeft();
-
-		for (Hotel h : listaHotelLeft) {
-
-			LOG.info("Hotel Left: " + h.getNombre() + "" + h.getDireccion());
-		}
-
-		LOG.info("Right JOIN");
-		//Right
-		List<Hotel> listaHotel3 = this.iHotelService.busacarHotelOuterJoinRight("Familiar");
-
-		for (Hotel h : listaHotel3) {
-
-			LOG.info("Hotel Familiar Right: " + h.getNombre() + "" + h.getDireccion());
-		}
-
 	}
 
 }
