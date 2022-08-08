@@ -16,4 +16,8 @@ public interface IFacturaService {
 
 	public List<Factura> buscarFacturalOuterJoinLeft();
 	
+	public List<Factura> busacarFacturaJoinWhere(Integer cantidad);
+
+	public List<Factura> busacarFacturaJoinFetch(Integer cantidad);
+	
 }

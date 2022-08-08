@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.uce.edu.demo.repository.modelo.DetalleFactura;
 import com.uce.edu.demo.repository.modelo.Factura;
 import com.uce.edu.demo.repository.modelo.Habitacion;
 import com.uce.edu.demo.repository.modelo.Hotel;
@@ -30,44 +31,38 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		LOG.info("INNER JOIN");
-		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoin(4);
+		LOG.info("INNER JOIN EAGER/LAZY");
+		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoin(8);
 
 		for (Factura f : listaFactura) {
 
-			LOG.info("Factura Inner: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
+			LOG.info(" LAZY   " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
+			for (DetalleFactura df : f.getDetalleFacturas()) {
+				LOG.info("Detalle Factura: " + df);
+			}
 		}
 
-		List<Factura> listaFacturaInner = this.iFacturaService.buscarFacturaInnerJoin();
+		LOG.info("REALCIONAMIENTO WHERE");
 
-		for (Factura f : listaFacturaInner) {
+		List<Factura> listaFacturaWhere = this.iFacturaService.busacarFacturaJoinWhere(8);
 
-			LOG.info("Factura Inner simple: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
+		for (Factura f : listaFacturaWhere) {
+
+			LOG.info("Factura Where: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
+
 		}
 
-		// LEFT
-		LOG.info("LEFT JOIN");
-		List<Factura> listaFactura2 = this.iFacturaService.buscarFacturaOuterJoinLeft(4);
+		LOG.info("JOIN FETCH");
 
-		for (Factura f : listaFactura2) {
+		List<Factura> listaFacturaFetch = this.iFacturaService.busacarFacturaJoinFetch(8);
 
-			LOG.info("Factura Left: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
-		}
+		for (Factura f : listaFacturaFetch) {
 
-		List<Factura> listaFacturalLeft = this.iFacturaService.buscarFacturalOuterJoinLeft();
+			LOG.info("Factura FETCH: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
+			for (DetalleFactura d : f.getDetalleFacturas()) {
+				LOG.info("Detalles Fetch: " + d);
+			}
 
-		for (Factura f : listaFacturalLeft) {
-
-			LOG.info("Factura Left simple: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
-		}
-
-		// Right 
-		LOG.info("Right JOIN"); 
-		List<Factura> listaFactura3 =this.iFacturaService.buscarFacturalOuterJoinRight(4);
-
-		for (Factura f : listaFactura3) {
-
-			LOG.info("Factura Right: " + "Numero: " + f.getNumero() + "  Fecha: " + f.getFecha());
 		}
 
 	}
