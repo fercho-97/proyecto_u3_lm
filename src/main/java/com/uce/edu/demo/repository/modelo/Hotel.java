@@ -31,7 +31,7 @@ public class Hotel {
 
 	//EGER carga por defecto necesite o no, siempre va a traer los datos de habitaciones
 	//LAZY conocido como carga perezosa pero mas eficiente
-	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "hotel")
 	private List<Habitacion> habitaciones;
 
 	@Override

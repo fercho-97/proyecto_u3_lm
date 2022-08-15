@@ -19,7 +19,7 @@ import com.uce.edu.demo.repository.modelo.Hotel;
 public class HotelRepositoryImpl implements IHotelRepository {
 
 	private static Logger LOG = Logger.getLogger(ProyectoU3LmApplication.class);
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -31,11 +31,11 @@ public class HotelRepositoryImpl implements IHotelRepository {
 		myQuery.setParameter("datoTipoHabitacion", tipoHabitacion);
 
 		List<Hotel> hotels = myQuery.getResultList();
-		for(Hotel h : hotels) {
+		for (Hotel h : hotels) {
 			h.getHabitaciones().size();
-			
+
 		}
-		
+
 		return hotels;
 	}
 
@@ -75,9 +75,7 @@ public class HotelRepositoryImpl implements IHotelRepository {
 		myQuery.setParameter("datoTipoHabitacion", tipoHabitacion);
 
 		return myQuery.getResultList();
-		
-		
-		
+
 	}
 
 	@Override
@@ -90,25 +88,61 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	public List<Hotel> busacarHotelJoinWhere(String tipoHabitacion) {
 		// TODO Auto-generated method stub
 
-		// SELECT * FROM hotel h, habitacion ha WHERE h.hotl_id = ha.habi_id_hotel-->en la DB
-		TypedQuery<Hotel> myQuery = this.entityManager
-				.createQuery("SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel AND ha.tipo = :datoTipoHabitacion", Hotel.class);
+		// SELECT * FROM hotel h, habitacion ha WHERE h.hotl_id = ha.habi_id_hotel-->en
+		// la DB
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery(
+				"SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel AND ha.tipo = :datoTipoHabitacion",
+				Hotel.class);
 		myQuery.setParameter("datoTipoHabitacion", tipoHabitacion);
-
 
 		return myQuery.getResultList();
 	}
 
 	@Override
-	//@Transactional(value = TxType.MANDATORY)
+	// @Transactional(value = TxType.MANDATORY)
 	public List<Hotel> busacarHotelJoinFetch(String tipoHabitacion) {
 		// TODO Auto-generated method stub
-		
-		LOG.info("Transaccion activa repository: "  + TransactionSynchronizationManager.isActualTransactionActive());
+
+		LOG.info("Transaccion activa repository: " + TransactionSynchronizationManager.isActualTransactionActive());
 		TypedQuery<Hotel> myQuery = this.entityManager.createQuery(
 				"SELECT h FROM Hotel h JOIN FETCH h.habitaciones ha WHERE ha.tipo = :datoTipoHabitacion", Hotel.class);
 		myQuery.setParameter("datoTipoHabitacion", tipoHabitacion);
-		
+
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public void insertar(Hotel hotel) {
+		// TODO Auto-generated method stub
+		this.entityManager.persist(hotel);
+
+	}
+
+	@Override
+	public Hotel buscar(Integer id) {
+		// TODO Auto-generated method stub
+		return this.entityManager.find(Hotel.class, id);
+	}
+
+	@Override
+	public Hotel actualizar(Hotel hotel) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(hotel);
+
+		return hotel;
+	}
+
+	@Override
+	public void borrar(Integer id) {
+		// TODO Auto-generated method stub
+		this.entityManager.remove(this.buscar(id));
+	}
+
+	@Override
+	public List<Hotel> listar() {
+		// TODO Auto-generated method stub
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h", Hotel.class);
+
 		return myQuery.getResultList();
 	}
 

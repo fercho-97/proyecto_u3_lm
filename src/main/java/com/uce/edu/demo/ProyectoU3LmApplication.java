@@ -40,10 +40,10 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-
+/*
 		this.iTransferenciaService.realizarTransferencia("1234", "1356", new BigDecimal(10));
 		
-		
+	*/	
 	/*
 		LOG.info("JOIN FETCH");
 

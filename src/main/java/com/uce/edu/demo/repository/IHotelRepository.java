@@ -24,4 +24,14 @@ public interface IHotelRepository {
 	
 	
 	
+	public void insertar(Hotel hotel);
+
+	public Hotel buscar(Integer id);
+
+	public Hotel actualizar(Hotel hotel);
+
+	public void borrar(Integer id);
+	
+	public List<Hotel> listar();
+	
 }
