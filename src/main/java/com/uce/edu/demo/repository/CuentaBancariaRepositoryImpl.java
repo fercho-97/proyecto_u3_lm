@@ -27,6 +27,8 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository {
 		// TODO Auto-generated method stub
 
 		this.entityManager.merge(cuentaBancaria);
+		
+		//throw new RuntimeException();
 
 	}
 

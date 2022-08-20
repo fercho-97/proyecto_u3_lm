@@ -59,6 +59,10 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 		}
 		
 */
+		
+		this.iTransferenciaService.realizarTransferenciaFachada("1356", "1234", new BigDecimal(1));
+		
+		
 	}
 
 }

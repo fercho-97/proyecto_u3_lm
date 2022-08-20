@@ -51,7 +51,7 @@ class HotelRepositoryImplTest {
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 
 		LOG.info("Termina la prueba del metodo");
 	}
@@ -61,11 +61,13 @@ class HotelRepositoryImplTest {
 	public void testInsertar() {
 
 		Hotel h = new Hotel();
-		h.setDireccion("Av. Quintana");
-		h.setNombre("Imperial");
+		h.setDireccion("Eloy ALfaro");
+		h.setNombre("JPL");
 
 		this.iHotelRepository.insertar(h);
+
 		assertNotNull(this.iHotelRepository.buscar(h.getId()));
+
 	}
 
 	@Test
@@ -111,23 +113,20 @@ class HotelRepositoryImplTest {
 		assertNull(this.iHotelRepository.buscar(id));
 
 	}
-	
+
 	@Test
 	@Order(5)
 	public void testListarHoteles() {
 		LOG.info("Listar todos los hoteles");
-		
+
 		List<Hotel> listaHoteles = this.iHotelRepository.listar();
-		
-		for(Hotel h : listaHoteles) {
-			
+
+		for (Hotel h : listaHoteles) {
+
 			LOG.info(h);
 		}
-		
 
 		assertThat(listaHoteles).size().isGreaterThan(0);
 	}
-
-	
 
 }

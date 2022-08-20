@@ -23,6 +23,8 @@ public class TransferenciaRepositoryImpl implements ITransfereciaRepository{
 		
 		
 		this.entityManager.persist(transferencia);
+		throw new RuntimeException();
+		
 	}
 
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -114,7 +115,7 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	@Override
 	public void insertar(Hotel hotel) {
 		// TODO Auto-generated method stub
-		this.entityManager.persist(hotel);
+		//this.entityManager.persist(hotel);
 
 	}
 
