@@ -1,6 +1,7 @@
 package com.uce.edu.demo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -14,6 +15,7 @@ import com.uce.edu.demo.repository.modelo.Factura;
 import com.uce.edu.demo.repository.modelo.Habitacion;
 import com.uce.edu.demo.repository.modelo.Hotel;
 import com.uce.edu.demo.service.IFacturaService;
+import com.uce.edu.demo.service.IGestorService;
 import com.uce.edu.demo.service.IHotelService;
 import com.uce.edu.demo.service.ITransferenciaService;
 
@@ -31,6 +33,8 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	@Autowired
 	private ITransferenciaService iTransferenciaService;
 	
+	@Autowired
+	private IGestorService iGestorService;
 	
 
 	public static void main(String[] args) {
@@ -40,28 +44,18 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-/*
-		this.iTransferenciaService.realizarTransferencia("1234", "1356", new BigDecimal(10));
-		
-	*/	
-	/*
-		LOG.info("JOIN FETCH");
 
-		List<Hotel> listaHotelFetch = this.iHotelService.busacarHotelJoinFetch("Familiar");
-
-		for (Hotel h : listaHotelFetch) {
-
-			LOG.info("Hotel FETCH: " + h.getNombre() + h.getDireccion());
-			for (Habitacion ha : h.getHabitaciones()) {
-				LOG.info("Habitaciones Fetch: " + ha);
-			}
-
-		}
 		
-*/
+		List<String> listaCompras = new ArrayList<String>();
 		
-		this.iTransferenciaService.realizarTransferenciaFachada("1356", "1234", new BigDecimal(1));
+		listaCompras.add("a7b7");
+		listaCompras.add("a6b6");
+		listaCompras.add("a8b8");
+		listaCompras.add("a1b1");
 		
+
+		
+		this.iGestorService.crearFacturaDetalles("002", "5", listaCompras);
 		
 	}
 
