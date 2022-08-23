@@ -44,26 +44,21 @@ public class GestorServiceImpl implements IGestorService {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	
 	public void crearFacturaDetalles(String cedulaCliente, String numeroFactura, List<String> codigos) {
 		// TODO Auto-generated method stub
-		
-		
-		
 
 		Cliente c = this.iClienteRepository.buscarPorCedula(cedulaCliente);
 		FacturaSupermaxi f = new FacturaSupermaxi();
 		f.setCliente(c);
 		f.setFecha(LocalDateTime.now());
 		f.setNumero(numeroFactura);
-		
 
 		this.iFacturaSupermaxiRepository.insertar(f);
 
 		Integer items = 0;
 		BigDecimal monto = new BigDecimal(0);
-		
-		LOG.info("Cantidad de producots"+codigos.size());
+
+		LOG.info("Cantidad de producots" + codigos.size());
 
 		for (String cod : codigos) {
 
@@ -120,6 +115,8 @@ public class GestorServiceImpl implements IGestorService {
 		fe.setNumeroItems(items);
 
 		this.iFacturaElectronicaRepository.insertar(fe);
+		
+		throw new RuntimeException();
 	}
 
 }

@@ -55,7 +55,7 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 		
 
 		
-		this.iGestorService.crearFacturaDetalles("002", "5", listaCompras);
+		this.iGestorService.crearFacturaDetalles("003", "8", listaCompras);
 		
 	}
 
