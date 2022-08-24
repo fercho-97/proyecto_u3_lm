@@ -8,4 +8,6 @@ public interface IFacturaSupermaxiRepository {
 	
 	public void actualizar (FacturaSupermaxi factura);
 	
+	public FacturaSupermaxi buscarPorNumero (String numero);
+	
 }

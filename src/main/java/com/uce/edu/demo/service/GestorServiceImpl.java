@@ -43,8 +43,19 @@ public class GestorServiceImpl implements IGestorService {
 	private IFacturaElectronicaRepository iFacturaElectronicaRepository;
 
 	@Override
+	public void realizarCompra(String cedulaCliente, String numeroFactura, List<String> codigos) {
+		// TODO Auto-generated method stub
+
+		Integer items = crearFacturaDetalles(cedulaCliente, numeroFactura, codigos);
+		
+		crearFacturaElectronica(numeroFactura,items);
+		
+
+	}
+
+	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public void crearFacturaDetalles(String cedulaCliente, String numeroFactura, List<String> codigos) {
+	public Integer crearFacturaDetalles(String cedulaCliente, String numeroFactura, List<String> codigos) {
 		// TODO Auto-generated method stub
 
 		Cliente c = this.iClienteRepository.buscarPorCedula(cedulaCliente);
@@ -78,10 +89,11 @@ public class GestorServiceImpl implements IGestorService {
 			actualizarStock(cod);
 
 		}
-
+		
 		f.setMonto(monto);
 		this.iFacturaSupermaxiRepository.actualizar(f);
-		crearFacturaElectronica(numeroFactura, monto, items);
+		return items;
+		
 
 	}
 
@@ -105,18 +117,20 @@ public class GestorServiceImpl implements IGestorService {
 
 	@Override
 	@Transactional(value = TxType.REQUIRES_NEW)
-	public void crearFacturaElectronica(String numeroFactura, BigDecimal monto, Integer items) {
+	public void crearFacturaElectronica(String numeroFactura, Integer items) {
 		// TODO Auto-generated method stub
-
+		FacturaSupermaxi f= this.iFacturaSupermaxiRepository.buscarPorNumero(numeroFactura);
+		
 		FacturaElectronicaSupermaxi fe = new FacturaElectronicaSupermaxi();
 		fe.setFecha(LocalDateTime.now());
-		fe.setMonto(monto);
-		fe.setNumero(numeroFactura);
+		fe.setMonto(f.getMonto());
+		fe.setNumero(f.getNumero());
 		fe.setNumeroItems(items);
 
 		this.iFacturaElectronicaRepository.insertar(fe);
 		
 		throw new RuntimeException();
+		
 	}
 
 }
