@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,7 @@ public class FacturaSupermaxiRepositoryImpl implements IFacturaSupermaxiReposito
 	private EntityManager entityManager;
 
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void insertar(FacturaSupermaxi factura) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(factura);
@@ -32,6 +34,7 @@ public class FacturaSupermaxiRepositoryImpl implements IFacturaSupermaxiReposito
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public FacturaSupermaxi buscarPorNumero(String numero) {
 		// TODO Auto-generated method stub
 		TypedQuery<FacturaSupermaxi> miTypedQuery = this.entityManager

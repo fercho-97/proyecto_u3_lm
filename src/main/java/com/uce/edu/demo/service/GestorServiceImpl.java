@@ -28,7 +28,7 @@ public class GestorServiceImpl implements IGestorService {
 	private static Logger LOG = Logger.getLogger(GestorServiceImpl.class);
 
 	@Autowired
-	private IFacturaSupermaxiRepository iFacturaSupermaxiRepository;
+	private IFacturaSupermaxiService iFacturaSupermaxiService;
 
 	@Autowired
 	private IProductoRepository iProductoRepository;
@@ -40,19 +40,20 @@ public class GestorServiceImpl implements IGestorService {
 	private IDetalleRepository iDetalleRepository;
 
 	@Autowired
-	private IFacturaElectronicaRepository iFacturaElectronicaRepository;
+	private IFacturaElectronicaService iFacturaElectronicaService;
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void realizarCompra(String cedulaCliente, String numeroFactura, List<String> codigos) {
 		// TODO Auto-generated method stub
 
-		Integer items = crearFacturaDetalles(cedulaCliente, numeroFactura, codigos);
-		
-		crearFacturaElectronica(numeroFactura,items);
+		BigDecimal totalPagar = this.iFacturaSupermaxiService.procesarFactura(cedulaCliente, numeroFactura, codigos);
+
+		this.iFacturaElectronicaService.procesarElectronica(numeroFactura, codigos.size(), totalPagar);
 		
 
 	}
-
+/*
 	@Override
 	@Transactional(value = TxType.REQUIRED)
 	public Integer crearFacturaDetalles(String cedulaCliente, String numeroFactura, List<String> codigos) {
@@ -132,5 +133,5 @@ public class GestorServiceImpl implements IGestorService {
 		throw new RuntimeException();
 		
 	}
-
+*/
 }

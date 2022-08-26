@@ -55,9 +55,9 @@ public class ProyectoU3LmApplication implements CommandLineRunner {
 		
 
 		
-		this.iGestorService.realizarCompra("003", "6", listaCompras);
+		this.iGestorService.realizarCompra("003", "8", listaCompras);
 		
-		listaCompras.forEach(producto -> System.out.println("Producto: "+ producto));
+		//listaCompras.forEach(producto -> System.out.println("Producto: "+ producto));
 		
 		
 	}

@@ -42,7 +42,7 @@ public class FacturaSupermaxi {
 	private Cliente cliente;
 
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<DetalleFactura> detalles;
+	private List<Detalle> detalles;
 
 	@Override
 	public String toString() {
@@ -92,11 +92,11 @@ public class FacturaSupermaxi {
 		this.cliente = cliente;
 	}
 
-	public List<DetalleFactura> getDetalles() {
+	public List<Detalle> getDetalles() {
 		return detalles;
 	}
 
-	public void setDetalles(List<DetalleFactura> detalles) {
+	public void setDetalles(List<Detalle> detalles) {
 		this.detalles = detalles;
 	}
 
