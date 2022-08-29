@@ -1,5 +1,7 @@
 package com.uce.edu.demo.service.funcional;
 
+import java.math.BigDecimal;
+
 import org.jboss.logging.Logger;
 
 public class MainInterfacesFuncionales {
@@ -8,8 +10,8 @@ public class MainInterfacesFuncionales {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		ConsumoMetodosHighOrder metodoHO = new ConsumoMetodosHighOrder();
+/*
+		
 
 		// SUPPLIER
 		// clases
@@ -69,32 +71,132 @@ public class MainInterfacesFuncionales {
 
 		LOG.info("HO Supplier: " + valorHO);
 
-		
-		
 		String valorHO1 = metodoHO.consumirSupplier(() -> {
 			String valorConsultado = "174856";
-			return valorConsultado;}
-		);
+			return valorConsultado;
+		});
 
 		LOG.info("HO Supplier 2: " + valorHO1);
 
-		
 		metodoHO.consumirConsumer(valor -> System.out.println(valor), 2);
-		
-		boolean respuesta =metodoHO.consumirPredicate(cadena -> cadena.contains("Z"), "EdisonZ");
-		
+
+		boolean respuesta = metodoHO.consumirPredicate(cadena -> cadena.contains("Z"), "EdisonZ");
+
 		LOG.info("Predicate HighOrder: " + respuesta);
-		
-		
+
 		String valorFinalHO = metodoHO.consumirFunction(valor -> {
-			String retorno =valor.toString()+ "A";
+			String retorno = valor.toString() + "A";
 			return retorno;
-			
+
 		}, 1);
-		
+
 		LOG.info("Function HighOrder: " + valorFinalHO);
+
+		*/
+		
+		//------------------------------------------------------------------------------
+		
+		ConsumoMetodosHighOrder metodoHO = new ConsumoMetodosHighOrder();
+		
+		// IMPLEMENTACION INTERFACES
+		// Supplier
+		ICatalogoSupplier<Integer> catalogoSupplierLambda = () -> {
+			Integer suma = 2 + 10;
+			return suma;
+		};
+
+		LOG.info("Catalogo Supplier Lambda: " + catalogoSupplierLambda.getCantidad());
 		
 		
+		ICatalogoSupplier<Integer> catalogoSupplier = new CatalogoSupplierImpl();
+		
+		LOG.info("Catalogo Supplier: " + catalogoSupplier.getCantidad());
+		
+		
+		// Metodos HIgh Order
+
+		Integer valorHO = metodoHO.consumirSupplierCatalogo(() -> 10);
+
+		LOG.info("HO Supplier: " + valorHO);
+		
+		
+
+		// Consumer
+		ICatalogoConsumer<String> catalogoConsumerLambda = cadena -> LOG.info("Registro de producto ConsummerLambda: " + cadena);
+
+		catalogoConsumerLambda.accept("Sauvage");
+		
+		
+		ICatalogoConsumer<Integer> catalogoConsumer = new CatalogoConsumerImpl();
+		catalogoConsumer.accept(10);
+		
+		// Metodos HIgh Order
+		
+		metodoHO.consumirConsumerCatalogo(valor -> System.out.println(valor), 4);
+		
+
+		// Predicate
+
+		ICatalogoPredicate<Integer> catalogoPredicateLambda = valor -> {
+			boolean confimacion = false;
+
+			if (valor % 2 == 0) {
+
+				confimacion = true;
+			} else {
+
+			}
+
+			return confimacion;
+		};
+		
+		LOG.info("Catalogo Predicate Lambda: " + catalogoPredicateLambda.evaluar(8));
+		
+		ICatalogoPredicate<String> catalogoPredicate = new CatalogoPredicateImpl();
+		
+		LOG.info("Catalogo Predicate : " + catalogoPredicate.evaluar("Manuel Garcia"));
+		
+		// Metodos HIgh Order
+		
+		boolean val = metodoHO.consumirPredicateCatalogo(cad -> cad.equals("lenovo Yoga Pro"), "Asus");
+		
+		LOG.info("Predicate HighOrder: " + val);
+
+		// Function
+		ICatologoFunction<String, Integer> catalogoFunctionLambda = cadena -> cadena.concat("001").length();
+		LOG.info("Cantidad de digitas en el ruc: "+catalogoFunctionLambda.aplicar("1716487952"));
+
+		ICatologoFunction<String, BigDecimal> catalogoFunction = new CatalogoFunctionImpl();
+		LOG.info("Catalogo Function: "+catalogoFunction.aplicar("Asus evo 500"));
+		
+		// Metodos High Order
+		
+		
+		BigDecimal ho = metodoHO.consumirFunctionCatalogo(cadena ->{ 
+			BigDecimal des = BigDecimal.ZERO;
+			des = new BigDecimal(cadena.length());
+			return des;
+		}
+		, "abx2" );
+		
+		LOG.info("Catalogo Function HighOrder : "+ ho);
+		
+		// Unary Operator
+		ICatalogoUnaryOperator<Integer> catalogoUnaryLambda = valor -> {
+			Double perdida = valor * 0.075;
+			Double valorFinal = perdida + valor ;
+			Integer valorFijo = (int) Math.round(valorFinal);
+			return  valorFijo;
+		};
+		
+		LOG.info("UnaryOperator Lambda: " + catalogoUnaryLambda.apply(500));
+		
+		
+		ICatalogoUnaryOperator<String> catalogoUnary = new CatalogoUnaryOperatorImpl();
+		LOG.info("UnaryOperator: "+ catalogoUnary.apply("Nimbus 2001"));
+		
+		
+				
 	}
 
 }
