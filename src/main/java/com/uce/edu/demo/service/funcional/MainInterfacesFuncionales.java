@@ -1,12 +1,36 @@
 package com.uce.edu.demo.service.funcional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.print.attribute.HashDocAttributeSet;
 
 import org.jboss.logging.Logger;
 
 public class MainInterfacesFuncionales {
 
 	private static Logger LOG = Logger.getLogger(MainInterfacesFuncionales.class);
+	
+	public static boolean prueba(Integer numero){
+		
+		boolean valida= numero>=3;
+		return valida;
+	}
+	
+	
+public static void imprimir(String cadena){
+		
+		System.out.println(cadena);
+	}
+
+public static void guardar(String elementoAInsertar){
+	
+	
+}
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -93,6 +117,48 @@ public class MainInterfacesFuncionales {
 		LOG.info("Function HighOrder: " + valorFinalHO);
 
 		*/
+		//------------------------------------------------------------------------------
+		//Java
+		LOG.info("JAVA Supplier");
+		Stream<String> test = Stream.generate(()->"Edison 3").limit(7);
+		test.forEach(cadena -> System.out.println(cadena));
+		
+		
+		LOG.info("JAVA Consumer");
+		List<Integer> listaNumeros = Arrays.asList(1,2,3,4,5);
+		listaNumeros.forEach(numero-> System.out.println(numero));
+		
+		
+		
+		LOG.info("JAVA Predicate");
+		Stream<Integer> nuevaLista = listaNumeros.stream().filter(numero -> prueba(numero));
+		
+		nuevaLista.forEach(numero-> System.out.println(numero));
+		
+		
+		LOG.info("JAVA Function");
+		Stream<String> listaCambiada =  listaNumeros.stream().map(numeroLista ->{
+			Integer valor = numeroLista +1;
+			String cadena = "num: " + valor.toString();
+			return cadena;
+		} );
+		
+		//Declarativa: ideas intencion
+		listaCambiada.forEach(cadena -> imprimir(cadena));
+		
+		
+		//Imperativa: paso a paso
+		//for ( String in : listaCambiada) {
+	//	
+	//	
+	//	}
+		
+		
+		List<String> lista = new ArrayList<String>();
+		//Map<String, String> mpa1 = new HashDocAttributeSet(null)
+		
+	
+		
 		
 		//------------------------------------------------------------------------------
 		
