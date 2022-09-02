@@ -24,7 +24,7 @@ public class MainStream {
 
 		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
 
-		System.out.println("Tiempo Transcurrido  "  + tiempoTranscurrido + " seg");
+		System.out.println("Tiempo Transcurrido Stream "  + tiempoTranscurrido + " seg");
 		
 	}
 

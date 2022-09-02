@@ -48,7 +48,7 @@ public class MainParalelo {
 
 		long tiempoTranscurrido = (tienpoFinal - tienpoInicial) / 1000;
 
-		System.out.println("Tiempo Transcurrido: " + tiempoTranscurrido + " seg");
+		System.out.println("Tiempo Transcurrido Main Paralelo: " + tiempoTranscurrido + " seg");
 
 	}
 

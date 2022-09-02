@@ -23,7 +23,7 @@ public class MainStreamParalelo {
 
 		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
 
-		System.out.println("Tiempo Transcurrido  "  + tiempoTranscurrido + " seg");
+		System.out.println("Tiempo Transcurrido StreamParalelo: "  + tiempoTranscurrido + " seg");
 		
 	}
 
