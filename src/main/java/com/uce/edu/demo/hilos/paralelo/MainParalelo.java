@@ -21,8 +21,6 @@ public class MainParalelo {
 		CajeroParalelo cajero5 = new CajeroParalelo("Edison", Arrays.asList("Pepito"));
 		CajeroParalelo cajero6 = new CajeroParalelo("Edison", Arrays.asList("Pepito"));
 
-		
-		
 		PCCajeroParalelo gestorAtencion = new PCCajeroParalelo(cajero1);
 		gestorAtencion.start();
 
@@ -31,8 +29,7 @@ public class MainParalelo {
 
 		PCCajeroParalelo gestorAtencion3 = new PCCajeroParalelo(cajero3);
 		gestorAtencion3.start();
-		
-		
+
 		PCCajeroParalelo gestorAtencion4 = new PCCajeroParalelo(cajero4);
 		gestorAtencion4.start();
 
@@ -41,8 +38,6 @@ public class MainParalelo {
 
 		PCCajeroParalelo gestorAtencion6 = new PCCajeroParalelo(cajero6);
 		gestorAtencion6.start();
-		
-		
 
 		long tienpoFinal = System.currentTimeMillis();
 

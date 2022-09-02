@@ -46,7 +46,7 @@ public class MainInterfacesFuncionales {
 
 		// Java
 	
-		LOG.info("Supplier");
+		LOG.info("Supplier se genero una lista");
 		Stream<Integer> testNumeros = Stream.generate(() -> 2).limit(8);
 
 		LOG.info("Consumer");
